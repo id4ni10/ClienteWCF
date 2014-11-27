@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="Adress" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="Code" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="Code" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="ID" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -40,8 +40,8 @@ public class Agency {
 
     @XmlElementRef(name = "Adress", namespace = "http://schemas.datacontract.org/2004/07/Lib", type = JAXBElement.class, required = false)
     protected JAXBElement<String> adress;
-    @XmlElement(name = "Code")
-    protected Integer code;
+    @XmlElementRef(name = "Code", namespace = "http://schemas.datacontract.org/2004/07/Lib", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> code;
     @XmlElement(name = "ID")
     protected Integer id;
 
@@ -74,10 +74,10 @@ public class Agency {
      * 
      * @return
      *     possible object is
-     *     {@link Integer }
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
      *     
      */
-    public Integer getCode() {
+    public JAXBElement<String> getCode() {
         return code;
     }
 
@@ -86,10 +86,10 @@ public class Agency {
      * 
      * @param value
      *     allowed object is
-     *     {@link Integer }
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
      *     
      */
-    public void setCode(Integer value) {
+    public void setCode(JAXBElement<String> value) {
         this.code = value;
     }
 

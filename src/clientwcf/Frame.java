@@ -5,12 +5,19 @@
  */
 package clientwcf;
 
+import adapters.AgenciaAdapter;
+import adapters.ClientAdapter;
+import adapters.ContaCorrenteAdapter;
+import controllers.AgenciasJpaController;
+import controllers.ClientesJpaController;
+import controllers.ContacorrentesJpaController;
 import java.awt.Cursor;
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import java.util.List;
+import javax.persistence.EntityManagerFactory;
 import javax.swing.table.DefaultTableModel;
+import model.Agencias;
+import model.Clientes;
+import model.Contacorrentes;
 import wcf.*;
 
 /**
@@ -19,10 +26,13 @@ import wcf.*;
  */
 public class Frame extends javax.swing.JFrame {
 
+    private final EntityManagerFactory emf;
+
     /**
      * Creates new form Frame
      */
     public Frame() {
+        emf = javax.persistence.Persistence.createEntityManagerFactory("mymoney?zeroDateTimeBehavior=convertToNullPU");
         initComponents();
     }
 
@@ -117,27 +127,52 @@ public class Frame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ListarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListarJButtonMouseClicked
-
+        realizarBusca();
     }//GEN-LAST:event_ListarJButtonMouseClicked
 
     private void BaixarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BaixarJButtonMouseClicked
-        realizarBusca();
-//        Service1 svc = new Service1();
-//        ArrayOfAccount accs = svc.getBasicHttpBindingIService1().getAllAccounts();
-//        ArrayOfAgency agcs = svc.getBasicHttpBindingIService1().getAllAgencyes();
+        Service1 svc = new Service1();
+
+        ArrayOfAccount accs = svc.getBasicHttpBindingIService1().getAllAccounts();
+        ArrayOfAgency agcs = svc.getBasicHttpBindingIService1().getAllAgencyes();
+        ArrayOfClient clts = svc.getBasicHttpBindingIService1().getAllClients();
+
+        AgenciaAdapter agenciaAdapter = new adapters.AgenciaAdapter();
+        List<Agencias> agencias = agenciaAdapter.parser(agcs);
+
+        ClientAdapter clientAdapter = new adapters.ClientAdapter();
+        List<Clientes> clientes = clientAdapter.parser(clts);
+
+        ContaCorrenteAdapter contaCorrenteAdapter = new adapters.ContaCorrenteAdapter();
+        List<Contacorrentes> contasContacorrentes = contaCorrenteAdapter.parser(accs, agencias, clientes, clts);
+
+        AgenciasJpaController ajc = new AgenciasJpaController(emf);
+        for (Agencias agencia : agencias) {
+            ajc.create(agencia);
+        }
+
+        ClientesJpaController cjc = new ClientesJpaController(emf);
+        for (Clientes cliente : clientes) {
+            cjc.create(cliente);
+        }
+
+        ContacorrentesJpaController ccjc = new ContacorrentesJpaController(emf);
+        for (Contacorrentes contas : contasContacorrentes) {
+            ccjc.create(contas);
+        }
     }//GEN-LAST:event_BaixarJButtonMouseClicked
 
     private void realizarBusca() {
         Cursor cursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
         this.setCursor(cursor);
 
-        Service1 svc = new Service1();
-        ArrayOfClient clts = svc.getBasicHttpBindingIService1().getAllClients();
+        ClientesJpaController cjc = new ClientesJpaController(emf);
+        List<Clientes> list = cjc.findClientesEntities();
 
         DefaultTableModel model = (DefaultTableModel) ClientesJtable.getModel();
 
         limparTabela(model);
-        preencherTabela(model, clts);
+        preencherTabela(model, list);
 
         cursor = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
         this.setCursor(cursor);
@@ -152,9 +187,9 @@ public class Frame extends javax.swing.JFrame {
         }
     }
 
-    private void preencherTabela(DefaultTableModel model, ArrayOfClient clients) {
-        for (Client client : clients.getClient()) {
-            Object[] linha = {client.getAccountID(), client.getName().getValue(), client.getBornDate().toString(), client.getAccountID()};
+    private void preencherTabela(DefaultTableModel model, List<Clientes> clients) {
+        for (Clientes client : clients) {
+            Object[] linha = {client.getId(), client.getNome(), client.getDataNascimento(), client.getId()};
             model.addRow(linha);
         }
     }

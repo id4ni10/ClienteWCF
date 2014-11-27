@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="AgencyID" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="Balance" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *         &lt;element name="Code" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="ID" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
@@ -32,18 +33,45 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Account", propOrder = {
+    "agencyID",
     "balance",
     "code",
     "id"
 })
 public class Account {
 
+    @XmlElement(name = "AgencyID")
+    protected Integer agencyID;
     @XmlElement(name = "Balance")
     protected Double balance;
     @XmlElementRef(name = "Code", namespace = "http://schemas.datacontract.org/2004/07/Lib", type = JAXBElement.class, required = false)
     protected JAXBElement<String> code;
     @XmlElement(name = "ID")
     protected Integer id;
+
+    /**
+     * Obtém o valor da propriedade agencyID.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getAgencyID() {
+        return agencyID;
+    }
+
+    /**
+     * Define o valor da propriedade agencyID.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setAgencyID(Integer value) {
+        this.agencyID = value;
+    }
 
     /**
      * Obtém o valor da propriedade balance.

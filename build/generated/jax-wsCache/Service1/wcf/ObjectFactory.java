@@ -28,7 +28,6 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _GetAllAgencyesResponseGetAllAgencyesResult_QNAME = new QName("http://tempuri.org/", "GetAllAgencyesResult");
     private final static QName _AnyURI_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "anyURI");
     private final static QName _Char_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "char");
     private final static QName _UnsignedByte_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "unsignedByte");
@@ -56,11 +55,12 @@ public class ObjectFactory {
     private final static QName _Agency_QNAME = new QName("http://schemas.datacontract.org/2004/07/Lib", "Agency");
     private final static QName _ArrayOfAgency_QNAME = new QName("http://schemas.datacontract.org/2004/07/Lib", "ArrayOfAgency");
     private final static QName _Client_QNAME = new QName("http://schemas.datacontract.org/2004/07/Lib", "Client");
-    private final static QName _GetAllAccountsResponseGetAllAccountsResult_QNAME = new QName("http://tempuri.org/", "GetAllAccountsResult");
-    private final static QName _AccountCode_QNAME = new QName("http://schemas.datacontract.org/2004/07/Lib", "Code");
-    private final static QName _ClientName_QNAME = new QName("http://schemas.datacontract.org/2004/07/Lib", "Name");
-    private final static QName _AgencyAdress_QNAME = new QName("http://schemas.datacontract.org/2004/07/Lib", "Adress");
     private final static QName _GetAllClientsResponseGetAllClientsResult_QNAME = new QName("http://tempuri.org/", "GetAllClientsResult");
+    private final static QName _AgencyAdress_QNAME = new QName("http://schemas.datacontract.org/2004/07/Lib", "Adress");
+    private final static QName _AgencyCode_QNAME = new QName("http://schemas.datacontract.org/2004/07/Lib", "Code");
+    private final static QName _ClientName_QNAME = new QName("http://schemas.datacontract.org/2004/07/Lib", "Name");
+    private final static QName _GetAllAgencyesResponseGetAllAgencyesResult_QNAME = new QName("http://tempuri.org/", "GetAllAgencyesResult");
+    private final static QName _GetAllAccountsResponseGetAllAccountsResult_QNAME = new QName("http://tempuri.org/", "GetAllAccountsResult");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: wcf
@@ -163,15 +163,6 @@ public class ObjectFactory {
      */
     public Agency createAgency() {
         return new Agency();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ArrayOfAgency }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "GetAllAgencyesResult", scope = GetAllAgencyesResponse.class)
-    public JAXBElement<ArrayOfAgency> createGetAllAgencyesResponseGetAllAgencyesResult(ArrayOfAgency value) {
-        return new JAXBElement<ArrayOfAgency>(_GetAllAgencyesResponseGetAllAgencyesResult_QNAME, ArrayOfAgency.class, GetAllAgencyesResponse.class, value);
     }
 
     /**
@@ -418,6 +409,51 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ArrayOfClient }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "GetAllClientsResult", scope = GetAllClientsResponse.class)
+    public JAXBElement<ArrayOfClient> createGetAllClientsResponseGetAllClientsResult(ArrayOfClient value) {
+        return new JAXBElement<ArrayOfClient>(_GetAllClientsResponseGetAllClientsResult_QNAME, ArrayOfClient.class, GetAllClientsResponse.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/Lib", name = "Adress", scope = Agency.class)
+    public JAXBElement<String> createAgencyAdress(String value) {
+        return new JAXBElement<String>(_AgencyAdress_QNAME, String.class, Agency.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/Lib", name = "Code", scope = Agency.class)
+    public JAXBElement<String> createAgencyCode(String value) {
+        return new JAXBElement<String>(_AgencyCode_QNAME, String.class, Agency.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/Lib", name = "Name", scope = Client.class)
+    public JAXBElement<String> createClientName(String value) {
+        return new JAXBElement<String>(_ClientName_QNAME, String.class, Client.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ArrayOfAgency }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "GetAllAgencyesResult", scope = GetAllAgencyesResponse.class)
+    public JAXBElement<ArrayOfAgency> createGetAllAgencyesResponseGetAllAgencyesResult(ArrayOfAgency value) {
+        return new JAXBElement<ArrayOfAgency>(_GetAllAgencyesResponseGetAllAgencyesResult_QNAME, ArrayOfAgency.class, GetAllAgencyesResponse.class, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ArrayOfAccount }{@code >}}
      * 
      */
@@ -432,34 +468,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/Lib", name = "Code", scope = Account.class)
     public JAXBElement<String> createAccountCode(String value) {
-        return new JAXBElement<String>(_AccountCode_QNAME, String.class, Account.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/Lib", name = "Name", scope = Client.class)
-    public JAXBElement<String> createClientName(String value) {
-        return new JAXBElement<String>(_ClientName_QNAME, String.class, Client.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/Lib", name = "Adress", scope = Agency.class)
-    public JAXBElement<String> createAgencyAdress(String value) {
-        return new JAXBElement<String>(_AgencyAdress_QNAME, String.class, Agency.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ArrayOfClient }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "GetAllClientsResult", scope = GetAllClientsResponse.class)
-    public JAXBElement<ArrayOfClient> createGetAllClientsResponseGetAllClientsResult(ArrayOfClient value) {
-        return new JAXBElement<ArrayOfClient>(_GetAllClientsResponseGetAllClientsResult_QNAME, ArrayOfClient.class, GetAllClientsResponse.class, value);
+        return new JAXBElement<String>(_AgencyCode_QNAME, String.class, Account.class, value);
     }
 
 }
